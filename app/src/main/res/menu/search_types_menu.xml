@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pizza"
+        android:title="Pizza"/>
+    <item android:id="@+id/tacos"
+        android:title="Mexican"/>
+    <item android:id="@+id/Italian"
+        android:title="Italian"/>
+    <item android:id="@+id/chinese"
+        android:title="Chinese"/>
+    <item android:id="@+id/burgers"
+    android:title="Burgers"/>
+    <item android:id="@+id/caribbean"
+        android:title="Caribbean"/>
+    <item android:id="@+id/brazilian"
+        android:title="Brazilian"/>
+
+</menu>

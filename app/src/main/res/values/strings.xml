@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Food+ Finder</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="take_me_there">Take Me There!</string>
+</resources>
