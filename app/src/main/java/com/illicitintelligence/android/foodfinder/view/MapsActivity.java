@@ -11,17 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,12 +64,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Observer<FoodFound> observer;
 
     List<Result> results = new ArrayList<>();
+    Handler handler = new Handler();
 
-
+    AnimatedVectorDrawable vectorDrawable;
     @BindView(R.id.menu_chooser)
     ImageView menuChooser;
     @BindView(R.id.rv_foodoptions)
     RecyclerView recyclerView;
+    @BindView(R.id.loading_screen)
+    ImageView loadingScreen;
+    @BindView(R.id.titleScreen)
+    TextView titleScreen;
+    @BindView(R.id.loading_frame_layout)
+    FrameLayout frameLayout;
 
 
     @Override
@@ -74,6 +85,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         ButterKnife.bind(this);
+
+        vectorDrawable = (AnimatedVectorDrawable)loadingScreen.getBackground();
+        vectorDrawable.start();
+
 
         RVAdapter adapter = new RVAdapter(results,this.getApplicationContext(),this);
         recyclerView.setAdapter(adapter);
@@ -115,6 +130,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }else{
             setUpListener();
         }
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(4000);
+                }catch (InterruptedException i){
+                    Log.d("TAG_X", "run: "+i.getMessage());
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        vectorDrawable.stop();
+                        loadingScreen.setVisibility(View.GONE);
+                        titleScreen.setVisibility(View.GONE);
+                        frameLayout.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+            }
+        });
+        thread.start();
     }
 
     @Override
@@ -217,6 +253,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addToBackStack(fragment.getTag())
                 .add(R.id.frame_layout,fragment)
                 .commit();
-
     }
 }

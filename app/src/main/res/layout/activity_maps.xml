@@ -7,6 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".view.MapsActivity">
 
+    <TextView
+        android:id="@+id/titleScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Finder +"
+        android:textSize="40sp"
+        android:elevation="12dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/loading_screen"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/loading_screen"
+        android:elevation="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <FrameLayout
+        android:id="@+id/loading_frame_layout"
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:background="#55BF66"/>
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:elevation="10dp"
